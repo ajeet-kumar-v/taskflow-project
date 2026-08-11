@@ -1,3 +1,6 @@
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+import os
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
@@ -6,11 +9,20 @@ from typing import List
 from . import models, schemas, database
 
 models.Base.metadata.create_all(bind=database.engine)
-
 app = FastAPI(title="TaskFlow API")
-@app.get("/")
-def read_root():
-    return {"message": "Welcome to TaskFlow API!"}
+
+# यह कोड आपके frontend फोल्डर को ढूंढेगा
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FRONTEND_DIR = os.path.abspath(os.path.join(BASE_DIR, "../../../frontend"))
+
+if os.path.exists(FRONTEND_DIR):
+    app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
+
+    @app.get("/")
+    def serve_frontend():
+        return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
+
+    
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
