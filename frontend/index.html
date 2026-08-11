@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TaskFlow - Task Manager</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
     <div class="container">
@@ -20,7 +20,7 @@
     </div>
 
     <script>
-        const API_URL = "http://127.0.0.1:8000/tasks/";
+        const API_URL = "/tasks/";
 
         async function fetchTasks() {
             const response = await fetch(API_URL);
