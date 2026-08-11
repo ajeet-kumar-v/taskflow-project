@@ -13,7 +13,7 @@ app = FastAPI(title="TaskFlow API")
 
 # यह कोड आपके frontend फोल्डर को ढूंढेगा
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-FRONTEND_DIR = os.path.abspath(os.path.join(BASE_DIR, "../../../frontend"))
+FRONTEND_DIR = os.path.abspath(os.path.join(BASE_DIR, "../../frontend"))
 
 if os.path.exists(FRONTEND_DIR):
     app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
