@@ -8,7 +8,9 @@ from . import models, schemas, database
 models.Base.metadata.create_all(bind=database.engine)
 
 app = FastAPI(title="TaskFlow API")
-
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to TaskFlow API!"}
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
